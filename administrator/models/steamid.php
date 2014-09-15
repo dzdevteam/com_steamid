@@ -53,8 +53,8 @@ class SteamidModelSteamid extends JModelAdmin
 
         // Get the form.
         $form = $this->loadForm('com_steamid.steamid', 'steamid', array('control' => 'jform', 'load_data' => $loadData));
-        
-        
+
+
         if (empty($form)) {
             return false;
         }
@@ -75,7 +75,7 @@ class SteamidModelSteamid extends JModelAdmin
 
         if (empty($data)) {
             $data = $this->getItem();
-            
+
         }
 
         return $data;
@@ -122,4 +122,51 @@ class SteamidModelSteamid extends JModelAdmin
         }
     }
 
+    /**
+     * Reload steam information
+     */
+    public function reload($pks) {
+        JArrayHelper::toInteger($pks);
+        $count = 0;
+        if ($pks) {
+            // Get corresponding steam ids from primary keys
+            $db = $this->getDbo();
+            $query = $db->getQuery(true);
+            $query->select("steamid")
+                ->from('#__steamid')
+                ->where('id IN (' . implode(',', $pks). ')');
+            $db->setQuery($query);
+
+            $steamids = $db->loadColumn(0);
+            if ($steamids) {
+                $result = json_decode(file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key=E6C7134FF86C803B2A04D974976AE561&steamids='.implode(',',$steamids)), true);
+                $summaries = $result['response']['players'];
+                foreach ($summaries as $player_summary) {
+                    $personaname = $player_summary['personaname'];
+                    $realname = !empty($player_summary['realname']) ? $player_summary['realname'] : '';
+                    $avatar = $player_summary['avatarfull'];
+                    $profileurl = $player_summary['profileurl'];
+                    $steamid = $player_summary['steamid'];
+
+                    $fields = array(
+                        $db->quoteName('personaname') . ' = ' . $db->quote($personaname),
+                        $db->quoteName('realname') . ' = ' . $db->quote($realname),
+                        $db->quoteName('avatar') . ' = ' . $db->quote($avatar),
+                        $db->quoteName('profileurl') . ' = ' . $db->quote($profileurl)
+                    );
+
+                    $query = $db->getQuery(true);
+                    $query->update('#__steamid')
+                        ->set($fields)
+                        ->where('steamid = ' . $db->quote($steamid));
+                    $db->setQuery($query);
+                    if ($db->query()) {
+                        $count++;
+                    }
+                }
+            }
+        }
+
+        return $count;
+    }
 }

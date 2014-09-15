@@ -59,7 +59,7 @@ class SteamidModelSteamids extends JModelList {
         $published = $app->getUserStateFromRequest($this->context . '.filter.state', 'filter_published', '', 'string');
         $this->setState('filter.state', $published);
 
-        
+
 
         // Load the parameters.
         $params = JComponentHelper::getParams('com_steamid');
@@ -107,7 +107,7 @@ class SteamidModelSteamids extends JModelList {
         );
         $query->from('`#__steamid` AS a');
 
-        
+
         // Join over the users for the checked out user
         $query->select("uc.name AS editor");
         $query->join("LEFT", "#__users AS uc ON uc.id=a.checked_out");
@@ -118,7 +118,7 @@ class SteamidModelSteamids extends JModelList {
         $query->select('#__users_1481052.name AS users_name_1481052');
         $query->join('LEFT', '#__users AS #__users_1481052 ON #__users_1481052.id = a.user_id');
 
-        
+
 
         // Filter by published state
         $published = $this->getState('filter.state');
@@ -139,7 +139,7 @@ class SteamidModelSteamids extends JModelList {
             }
         }
 
-        
+
 
 
         // Add the list ordering clause.
@@ -154,7 +154,7 @@ class SteamidModelSteamids extends JModelList {
 
     public function getItems() {
         $items = parent::getItems();
-        
+
         foreach ($items as $oneItem) {
 
             if (isset($oneItem->user_id)) {

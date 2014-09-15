@@ -65,6 +65,7 @@ class SteamidViewSteamids extends JViewLegacy {
 
             if ($canDo->get('core.edit') && isset($this->items[0])) {
                 JToolBarHelper::editList('steamid.edit', 'JTOOLBAR_EDIT');
+                JToolBarHelper::custom('steamids.reload', 'refresh.png', 'refresh_f2.png', 'Reload', true);
             }
         }
 
@@ -107,7 +108,7 @@ class SteamidViewSteamids extends JViewLegacy {
         JHtmlSidebar::setAction('index.php?option=com_steamid&view=steamids');
 
         $this->extra_sidebar = '';
-        
+
         JHtmlSidebar::addFilter(
 
             JText::_('JOPTION_SELECT_PUBLISHED'),

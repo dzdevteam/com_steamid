@@ -26,8 +26,8 @@ class SteamidControllerSteamids extends JControllerAdmin
         $model = parent::getModel($name, $prefix, array('ignore_request' => true));
         return $model;
     }
-    
-    
+
+
     /**
      * Method to save the submitted ordering values for records via AJAX.
      *
@@ -60,7 +60,19 @@ class SteamidControllerSteamids extends JControllerAdmin
         // Close the application
         JFactory::getApplication()->close();
     }
-    
-    
-    
+
+    /**
+     * Method to reload steam information
+     */
+    public function reload()
+    {
+        // Get the input
+        $pks = JFactory::getApplication()->input->post->get('cid', array(), 'array');
+
+        $model = $this->getModel();
+        $result = $model->reload($pks);
+
+        $this->setRedirect('index.php?option=com_steamid&view=steamids', JText::sprintf("COM_STEAMID_RELOAD_SUCCESS", $result));
+    }
+
 }
