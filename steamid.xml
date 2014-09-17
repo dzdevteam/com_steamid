@@ -9,9 +9,9 @@
     <authorUrl>http://dezign.vn</authorUrl>
     <version>1.0.0</version>
     <description></description>
-    
-    
-    
+
+
+
     <install> <!-- Runs on install -->
         <sql>
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>
@@ -35,14 +35,18 @@
         <folder>assets</folder>
     </files>
     <languages folder="site">
-        
+
             <language tag="en-GB">language/en-GB/en-GB.com_steamid.ini</language>
             <language tag="vi-VN">language/vi-VN/vi-VN.com_steamid.ini</language>
     </languages>
+    <media folder="media" destination="com_steamid">
+        <folder>images</folder>
+        <filename>index.html</filename>
+    </media>
     <administration>
         <menu img="components/com_steamid/assets/images/s_com_steamid.png" >COM_STEAMID</menu>
         <submenu>
-            
+
             <menu link="option=com_steamid&amp;view=steamids" view="steamids" img="components/com_steamid/assets/images/s_steamids.png" alt="Steamid/Steamids">COM_STEAMID_TITLE_STEAMIDS</menu>
 
         </submenu>
@@ -62,7 +66,7 @@
             <folder>language</folder>
         </files>
         <languages folder="administrator">
-            
+
             <language tag="en-GB">language/en-GB/en-GB.com_steamid.ini</language>
             <language tag="en-GB">language/en-GB/en-GB.com_steamid.sys.ini</language>
             <language tag="vi-VN">language/vi-VN/vi-VN.com_steamid.ini</language>
@@ -72,7 +76,7 @@
     <plugins>
         <plugin group="search" plugin="steamid"/>
     </plugins>
-    
+
 </extension>
 <!-- Component built by the Joomla Component Creator -->
 <!-- http://www.component-creator.com/ -->

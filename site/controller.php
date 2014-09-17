@@ -26,7 +26,7 @@ class SteamidController extends JControllerLegacy {
     public function display($cachable = false, $urlparams = false) {
         require_once JPATH_COMPONENT . '/helpers/steamid.php';
 
-        $view = JFactory::getApplication()->input->getCmd('view', 'steamids');
+        $view = JFactory::getApplication()->input->getCmd('view', 'login');
         JFactory::getApplication()->input->set('view', $view);
 
         parent::display($cachable, $urlparams);

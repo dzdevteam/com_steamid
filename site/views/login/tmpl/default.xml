@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_STEAMID_TITLE_ITEM_VIEW_LOGIN" option="View">
+        <message>
+                        <![CDATA[COM_STEAMID_TITLE_ITEM_VIEW_LOGIN_DESC]]>
+        </message>
+    </layout>
+    <fields name="params">
+        <fieldset
+            name="basic"
+            label="COM_STEAMID_FIELDSET_ITEM_ID_SELECT_LABEL">
+            <field
+                name="btn_image_src" type="list"
+                label="COM_STEAMID_LBL_BTN_SIZE"
+                description="COM_STEAMID_DESC_BTN_SIZE">
+                <option value="sits_small.png">COM_STEAMID_OPTION_BTN_SMALL</option>
+                <option value="sits_large_noborder.png">COM_STEAMID_OPTION_BTN_LARGE</option>
+                <option value="sits_large_border.png">COM_STEAMID_OPTION_BTN_BORDERED_LARGE</option>
+            </field>
+
+            <field type="spacer" />
+            <field
+                name="login"
+                type="menuitem"
+                disable="separator"
+                label="COM_STEAMID_FIELD_LOGIN_REDIRECTURL_LABEL"
+                description="COM_STEAMID_FIELD_LOGIN_REDIRECTURL_DESC" >
+                <option
+                    value="">JDEFAULT</option>
+            </field>
+            <field
+                name="logout"
+                type="menuitem"
+                disable="separator"
+                label="COM_STEAMID_FIELD_LOGOUT_REDIRECTURL_LABEL"
+                description="COM_STEAMID_FIELD_LOGOUT_REDIRECTURL_DESC" >
+                <option
+                    value="">JDEFAULT</option>
+            </field>
+        </fieldset>
+    </fields>
+</metadata>
