@@ -9,14 +9,14 @@
  */
 // No direct access
 defined('_JEXEC') or die;
-$image_src = JURI::root() . 'media/com_steamid/images/sits_small.png';
+$image_src = JURI::root() . 'media/com_steamid/images/sits_large_border.png';
 ?>
 <?php if (!$this->try_auth) : ?>
 <div id="steamlogin">
     <form id="steamlogin_form" method="POST">
         <input type="hidden" name="try_auth" value="1"/>
         <input type="image" src="<?php echo $image_src; ?>" />
-        <input type="return" name="return" value="<?= $this->return; ?>" />
+        <input type="hidden" name="return" value="<?= $this->return; ?>" />
     </form>
     <div class="loader" style="display: none;">
         <img src="<?php echo JUri::root().'media/system/images/modal/spinner.gif'; ?>" />
