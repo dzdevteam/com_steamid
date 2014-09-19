@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 <?php if ($this->error) : ?>
     <?php echo $this->loadTemplate('error'); ?>
 <?php elseif ($this->try_auth) : ?>
-    <?php echo $this->loadTemplate('login'); ?>
-<?php else : ?>
     <?php echo $this->loadTemplate('form'); ?>
+<?php else : ?>
+    <?php echo $this->loadTemplate('login'); ?>
 <?php endif; ?>
