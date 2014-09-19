@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 ?>
 <div id="steamlogin">
-    <div class="alert alert-error">
+    <div class="alert alert-danger">
         <?php echo $this->error->getMessage(); ?>
     </div>
 </div>
