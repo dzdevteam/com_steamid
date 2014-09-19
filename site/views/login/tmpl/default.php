@@ -13,7 +13,7 @@ $image_src = JURI::root() . 'media/com_steamid/images/sits_large_border.png';
 ?>
 <?php if (!$this->try_auth) : ?>
 <div id="steamlogin">
-    <form id="steamlogin_form" method="POST">
+    <form id="steamlogin_form" method="POST" action="<?= $this->form_url; ?>">
         <input type="hidden" name="try_auth" value="1"/>
         <input type="image" src="<?php echo $image_src; ?>" />
         <input type="hidden" name="return" value="<?= $this->return; ?>" />
@@ -30,6 +30,7 @@ $image_src = JURI::root() . 'media/com_steamid/images/sits_large_border.png';
 
         jQuery.ajax({
             type: "POST",
+            url: this.action,
             data: jQuery(this).serialize(),
             success: function(data) {
                 var module = jQuery("#steamlogin", jQuery(data));

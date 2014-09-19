@@ -30,6 +30,12 @@ class SteamidViewLogin extends JViewLegacy {
         // Redirect to this URL after successfully logged in
         $this->return = JRequest::getVar('return');
 
+        // Get form url
+        if (JRequest::getVar('Itemid')) {
+            $this->form_url = JRoute::_('index.php?Itemid=' . JRequest::getVar('Itemid'));
+        } else {
+            $this->form_url = JRoute::_('index.php?option=com_steamid&view=login');
+        }
         $user = JFactory::getUser();
         if (!$user->get('guest')) {
             // Already logged in
@@ -64,17 +70,22 @@ class SteamidViewLogin extends JViewLegacy {
             usleep(300); // Make sure the login session is complete before redirect
 
             $session = &JFactory::getSession();
-            if ($result && $session->get('user.first_connect', false)) {
-                $session->clear('user.first_connect');
-                $app->enqueueMessage(JText::_('COM_STEAMID_FIRST_LOGIN_MESSAGE'), 'notice');
-                $app->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit'));
-            } else if ($session->get('user.return')) {
-                $return = base64_decode($session->get('user.return'));
-                $session->clear('user.return');
-                $app->redirect($return, JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
+            if ($result) {
+                if ($session->get('user.first_connect', false)) {
+                    $session->clear('user.first_connect');
+                    $app->enqueueMessage(JText::_('COM_STEAMID_FIRST_LOGIN_MESSAGE'), 'notice');
+                    $app->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit'));
+                } else if ($session->get('user.return')) {
+                    $return = base64_decode($session->get('user.return'));
+                    $session->clear('user.return');
+                    $app->redirect($return, JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
+                } else {
+                    $app->redirect(JUri::root(), JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
+                }
             } else {
-                $app->redirect(JUri::root(), JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
+                // Nothing
             }
+
         }
 
         parent::display($tpl);
