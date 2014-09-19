@@ -121,4 +121,16 @@ class SteamidFrontendHelper {
         $form_html = str_replace('<input type="submit" value="Continue" />', '',$form_html);
         return $form_html;
     }
+    
+    public static function getSteamInfo($id)
+    {
+        $db = JFactory::getDbo();
+        $query = $db->getQuery(true);
+        $query->select('*')
+            ->from('#__steamid')
+            ->where('user_id = ' . (int) $id);
+        $db->setQuery($query);
+        
+        return $db->loadObject();
+    }
 }
