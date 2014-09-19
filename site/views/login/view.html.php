@@ -72,7 +72,7 @@ class SteamidViewLogin extends JViewLegacy {
             if ($result) {
                 if ($session->get('user.first_connect', false)) {
                     $session->clear('user.first_connect');
-                    $app->enqueueMessage(JText::_('COM_STEAMID_FIRST_LOGIN_MESSAGE'), 'notice');
+                    $app->enqueueMessage(JText::_('COM_STEAMID_FIRST_LOGIN_MESSAGE'), 'info');
                     $app->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit'));
                 } else if ($session->get('user.return')) {
                     $return = base64_decode($session->get('user.return'));
