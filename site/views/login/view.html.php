@@ -19,6 +19,7 @@ class SteamidViewLogin extends JViewLegacy {
     protected $try_auth;
     protected $form;
     protected $return;
+    protected $error;
 
     /**
      * Temporary put logic here
@@ -56,9 +57,7 @@ class SteamidViewLogin extends JViewLegacy {
             try {
                 $this->form = SteamidFrontendHelper::getForm();
             } catch (Exception $e) {
-                // Return to current url to show error
-                $url = SteamidFrontendHelper::getCurrentUrl();
-                JFactory::getApplication()->redirect(JRoute::_($url), $e->getMessage(), 'error');
+                $this->error = $e;
             }
         }
 
