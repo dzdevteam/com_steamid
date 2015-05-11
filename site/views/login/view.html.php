@@ -76,10 +76,15 @@ class SteamidViewLogin extends JViewLegacy {
                     $app->redirect(JRoute::_('index.php?option=com_users&view=profile&layout=edit'));
                 } else if ($session->get('user.return')) {
                     $return = base64_decode($session->get('user.return'));
+                    if (strpos($return, '?') !== FALSE) {
+                        $return .= '&ref=auth';
+                    } else {
+                        $return .= '?ref=auth';
+                    }
                     $session->clear('user.return');
                     $app->redirect($return, JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
                 } else {
-                    $app->redirect(JUri::root(), JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
+                    $app->redirect(JUri::root(). '?ref=auth', JText::_('COM_STEAMID_LOGIN_SUCCESS'), 'success');
                 }
             } else {
                 // Nothing
