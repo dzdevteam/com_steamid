@@ -106,11 +106,11 @@ class SteamidFrontendHelper {
      * -1 if neither.
      * Used when creating return URL with JRoute().
      */
-    protected function usessl_int() {
+    protected function useSslInt() {
         $uri = JUri::getInstance();
         if ($uri->getScheme() == 'https') {
             return 1;
-        } else if ($uri-getScheme() == 'http') {
+        } else if ($uri->getScheme() == 'http') {
             return 2;
         } else {
             return -1;
@@ -132,7 +132,7 @@ class SteamidFrontendHelper {
         }
         // Generate form markup and render it.
         $form_id = 'openid_message';
-        $form_html = $auth_request->formMarkup(JUri::root(), JRoute::_(self::getCurrentUrl(), true, self::usessl_int() ),
+        $form_html = $auth_request->formMarkup(JUri::root(), JRoute::_(self::getCurrentUrl(), true, self::useSslInt() ),
                                                 false, array('id' => $form_id));
         $form_html = str_replace('<input type="submit" value="Continue" />', '',$form_html);
 
