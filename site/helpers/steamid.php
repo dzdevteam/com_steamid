@@ -9,24 +9,6 @@
  */
 defined('_JEXEC') or die;
 
-/*
-jimport('joomla.log.log');
-JLog::addLogger(
-    array(
-         // Sets file name
-         'text_file' => 'com_steamid.log.php'
-    ),
-    // Sets messages of all log levels to be sent to the file
-    JLog::ALL,
-    // The log category/categories which should be recorded in this file
-    // In this case, it's just the one category from our extension, still
-    // we need to put it inside an array
-    array('com_steamid')
-);
-// JLog::add(JText::_('STEAMID PHP INIT'), JLog::WARNING, 'com_steamid');
-//JLog::add(JText::_('JTEXT_ERROR_MESSAGE'), JLog::WARNING, 'com_steamid');
-*/
-
 $path = ini_get('include_path');
 $path_extra = JPATH_LIBRARIES.'/openid/';
 $path = $path_extra . PATH_SEPARATOR . $path;
@@ -153,14 +135,6 @@ class SteamidFrontendHelper {
         $form_html = $auth_request->formMarkup(JUri::root(), JRoute::_(self::getCurrentUrl(), true, self::usessl_int() ),
                                                 false, array('id' => $form_id));
         $form_html = str_replace('<input type="submit" value="Continue" />', '',$form_html);
-        // JLog::add(JText::_('Returning form HTML: ' . $form_html ), JLog::DEBUG, 'com_steamid');
-
-        // JLog::add(JText::_('JRoute return with -1: ' . JRoute::_(self::getCurrentUrl(), true, -1) ), JLog::DEBUG, 'com_steamid');// XXX
-        // JLog::add(JText::_('JRoute return with 0: ' . JRoute::_(self::getCurrentUrl(), true, 0) ), JLog::DEBUG, 'com_steamid');// XXX
-        // JLog::add(JText::_('JRoute return without: ' . JRoute::_(self::getCurrentUrl(), true) ), JLog::DEBUG, 'com_steamid');// XXX
-        // JLog::add(JText::_('JRoute return with 1: ' . JRoute::_(self::getCurrentUrl(), true, 1) ), JLog::DEBUG, 'com_steamid');// XXX
-        // JLog::add(JText::_('JRoute return with 2: ' . JRoute::_(self::getCurrentUrl(), true, 2) ), JLog::DEBUG, 'com_steamid');// XXX
-        // JLog::add(JText::_('JRoute return with ssl func: ' . JRoute::_(self::getCurrentUrl(), true, self::usessl_int() ) ), JLog::DEBUG, 'com_steamid');// XXX
 
         return $form_html;
     }
