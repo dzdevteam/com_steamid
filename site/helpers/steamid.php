@@ -101,6 +101,22 @@ class SteamidFrontendHelper {
         return (!$user->get('guest')) ? 'logout' : 'login';
     }
 
+    /**
+     * Return 1 if https url, 2 if http,
+     * -1 if neither.
+     * Used when creating return URL with JRoute().
+     */
+    protected function useSslInt() {
+        $uri = JUri::getInstance();
+        if ($uri->getScheme() == 'https') {
+            return 1;
+        } else if ($uri->getScheme() == 'http') {
+            return 2;
+        } else {
+            return -1;
+        }
+    }
+
     public static function getForm()
     {
         $identifier = 'http://steamcommunity.com/openid';
@@ -116,12 +132,13 @@ class SteamidFrontendHelper {
         }
         // Generate form markup and render it.
         $form_id = 'openid_message';
-        $form_html = $auth_request->formMarkup(JUri::root(), JRoute::_(self::getCurrentUrl(), true, -1),
+        $form_html = $auth_request->formMarkup(JUri::root(), JRoute::_(self::getCurrentUrl(), true, self::useSslInt() ),
                                                 false, array('id' => $form_id));
         $form_html = str_replace('<input type="submit" value="Continue" />', '',$form_html);
+
         return $form_html;
     }
-    
+
     public static function getSteamInfo($id)
     {
         $db = JFactory::getDbo();
@@ -130,7 +147,7 @@ class SteamidFrontendHelper {
             ->from('#__steamid')
             ->where('user_id = ' . (int) $id);
         $db->setQuery($query);
-        
+
         return $db->loadObject();
     }
 }
